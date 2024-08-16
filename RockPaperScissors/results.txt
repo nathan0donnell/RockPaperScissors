@@ -1,0 +1,3 @@
+Player: Nathan, Result: WON
+Player: Someone, Result: LOST
+Player: Samuel, Result: WON
