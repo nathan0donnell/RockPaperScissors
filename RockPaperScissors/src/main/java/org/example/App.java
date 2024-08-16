@@ -1,17 +1,19 @@
 package org.example;
 
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
+import java.io.FileWriter;
 
 
 public class App {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         // Create scanner object
         Scanner user_input = new Scanner(System.in);
 
         // User Creation
         User player = new User();
-
+        String matchResult="";
         // Ask for name
         coolOutput("Enter your name:");
         player.setName(user_input.next());
@@ -97,14 +99,22 @@ public class App {
             // Add Round totals
             if (playerPoints > computerPoints) {
                 coolOutput("\nYou win the game....");
+                matchResult="WON";
                 drawed=false;
             } else if (playerPoints < computerPoints) {
                 coolOutput("\nYou LOSE!");
+                matchResult="LOST";
                 drawed=false;
             } else if (playerPoints == computerPoints) {
                 coolOutput("\nDRAW! KEEP PLAYING!");
             }
         } while (drawed);
+        try (FileWriter writer = new FileWriter("results.txt", true)){
+            writer.write("\nPlayer: " + player.getName() + ", Result: " + matchResult);
+            System.out.println("Match result saved to file.");
+        } catch (IOException  e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public static void coolOutput(String output) {
